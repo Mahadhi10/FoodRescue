@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\helloworld_dotnetcore5.props" />
+</Project>

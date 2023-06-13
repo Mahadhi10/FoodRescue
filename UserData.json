@@ -1,0 +1,30 @@
+[
+  {
+    "EmailId": "test@1.in",
+    "CustomerPwd": "Test@123",
+    "FirstName": "Sample",
+    "LastName": "One",
+    "PhoneNumber": "1234567890",
+    "PStation": "PS",
+    "PSPhoneNumber": "1234567890",
+    "Address1": "",
+    "Address2": "",
+    "PinCode": "",
+    "UserType": "1",
+    "status": null
+  },
+  {
+    "EmailId": "test@1.in",
+    "CustomerPwd": "sdssd",
+    "FirstName": "Sam",
+    "LastName": "Joe",
+    "PhoneNumber": "345678678688",
+    "PStation": "89",
+    "PSPhoneNumber": "7987977979797",
+    "Address1": "97",
+    "Address2": "",
+    "PinCode": "",
+    "UserType": "0",
+    "status": null
+  }
+]
