@@ -7,6 +7,7 @@ namespace helloworld_dotnetcore5
 {
     public class Customer
     {
+
         public string EmailId { get; set; }
         public string CustomerPwd { get; set; }
         public string FirstName { get; set; }
