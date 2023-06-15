@@ -1,0 +1,18 @@
+[
+  {
+    "OrganizationID": 1,
+    "EmailId": "test@1.in",
+    "OrganizationName": "Sample One",
+    "PickUpAddress1": "p1",
+    "PickUpAddress2": "p2",
+    "PickUpPinCode": null,
+    "FirstName": "Sample",
+    "LastName": "One",
+    "PhoneNumber": "1234567890",
+    "PStation": "PS",
+    "PSPhoneNumber": "1234567890",
+    "Address1": "ssd",
+    "Address2": "",
+    "PinCode": ""
+  }
+]

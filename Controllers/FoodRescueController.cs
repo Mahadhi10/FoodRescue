@@ -61,7 +61,9 @@ namespace helloworld_dotnetcore5.Controllers
                         Address1 = obj.Address1,
                         Address2 = obj.Address2,
                         PinCode = obj.PinCode,
-                        UserType = obj.UserType
+                        UserType = obj.UserType,
+                        orgid= people.Count()+1,
+                        orgname= string.Concat(obj.FirstName," ", obj.LastName)
                     };
 
                     people.Add(newData);
@@ -134,7 +136,95 @@ namespace helloworld_dotnetcore5.Controllers
             {
                 return BadRequest("No Records");
             }
+        }
 
+        [HttpGet]
+        [Route("GetHistoryData")]
+        public ActionResult<IEnumerable<ContributionHistory>> GetHistoryData()
+        {
+            _logger.LogInformation("information", "The GetHistoryData method is invoked");
+
+            string filePath = Path.Combine(_hostingEnvironment.ContentRootPath, "ContributionData.json");
+
+            if (System.IO.File.Exists(filePath))
+            {
+                string jsonData = System.IO.File.ReadAllText(filePath);
+                var serdata = JsonConvert.DeserializeObject<List<ContributionHistory>>(jsonData).ToList().Select(a => new ContributionHistory {
+
+                    OrganizationID = a.OrganizationID,
+                    FirstName = a.FirstName,
+                    LastName = a.LastName,
+                    OrganizationName = a.OrganizationName
+                });
+ 
+                return Ok(serdata);
+            }
+            else
+            {
+                return BadRequest("No Records");
+            }
+        }
+
+        [HttpPost]
+        [Route("CreateContribution")]
+        public ActionResult<IEnumerable<ContributionHistory>> CreateContribution(ContributionHistory obj)
+        {
+            _logger.LogInformation("information", "The CreateContribution method is invoked");
+            var jsonObject = new JsonResponse { Result = true, STATUS = "SUCCESS" };
+
+            string filePath = Path.Combine(_hostingEnvironment.ContentRootPath, "ContributionData.json"); // Specify the path to your JSON file
+
+
+            string orgdatajsonpath= Path.Combine(_hostingEnvironment.ContentRootPath, "UserData.json");
+            string orgdatajson = System.IO.File.ReadAllText(orgdatajsonpath);
+            
+            var orgobjlist= JsonConvert.DeserializeObject<List<Customer>>(orgdatajson);
+            var singleobj = orgobjlist.Where(a => a.orgid == obj.OrganizationID).FirstOrDefault();
+
+            if (System.IO.File.Exists(filePath))
+            {
+                string jsonData = System.IO.File.ReadAllText(filePath);
+                var people = JsonConvert.DeserializeObject<List<ContributionHistory>>(jsonData);
+                if (people == null)
+                {
+                    people = new List<ContributionHistory>();
+                }
+
+                if (obj != null)
+                {
+                    var newData = new ContributionHistory
+                    {
+                        OrganizationID=obj.OrganizationID,
+                        OrganizationName= singleobj.orgname,
+                        FirstName = singleobj.FirstName,
+                        LastName = singleobj.LastName,
+                        PhoneNumber = singleobj.PhoneNumber,
+                        PStation = singleobj.PStation,
+                        PSPhoneNumber = singleobj.PSPhoneNumber,
+                        EmailId = singleobj.EmailId,                 
+                        Address1 = singleobj.Address1,
+                        Address2 = singleobj.Address2,
+                        PinCode = singleobj.PinCode,
+                        PickUpAddress1=obj.PickUpAddress1,
+                        PickUpAddress2=obj.PickUpAddress2,
+                        PickUpPinCode=obj.PickUpPinCode
+                    };
+
+                    people.Add(newData);
+                }
+
+                string updatedjson = JsonConvert.SerializeObject(people, Formatting.Indented);
+                System.IO.File.WriteAllText(filePath, updatedjson);
+                jsonObject.Result = true;
+                jsonObject.STATUS = "SUCCESS";
+                return Ok(jsonObject);
+            }
+            else
+            {
+                jsonObject.Result = false;
+                jsonObject.STATUS = "ERROR";
+                return Ok(jsonObject);
+            }
 
         }
     }

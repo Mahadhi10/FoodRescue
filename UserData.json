@@ -7,11 +7,13 @@
     "PhoneNumber": "1234567890",
     "PStation": "PS",
     "PSPhoneNumber": "1234567890",
-    "Address1": "",
+    "Address1": "ssd",
     "Address2": "",
     "PinCode": "",
     "UserType": "1",
-    "status": null
+    "status": null,
+    "orgname": "Sample One",
+    "orgid": 1
   },
   {
     "EmailId": "test@1.in",
@@ -25,6 +27,9 @@
     "Address2": "",
     "PinCode": "",
     "UserType": "0",
-    "status": null
+    "status": null,
+    "orgname": "Sam Joe",
+    "orgid": 2
+
   }
 ]
